@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.CgpaTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-03-07T16:42:56" hostname="abhay" time="0.068">
+  <properties/>
+  <testcase name="Check2()" classname="org.example.CgpaTest" time="0.031"/>
+  <testcase name="Check3()" classname="org.example.CgpaTest" time="0.036"/>
+  <system-out><![CDATA[135.0
+19.5
+6.92
+]]></system-out>
+  <system-err><![CDATA[FATAL: database "postgres123" does not exist
+]]></system-err>
+</testsuite>

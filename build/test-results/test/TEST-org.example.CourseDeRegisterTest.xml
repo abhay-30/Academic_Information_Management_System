@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.CourseDeRegisterTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-03-07T16:42:56" hostname="abhay" time="0.067">
+  <properties/>
+  <testcase name="deregisterunsuccessful()" classname="org.example.CourseDeRegisterTest" time="0.031"/>
+  <testcase name="deregistersuccessful()" classname="org.example.CourseDeRegisterTest" time="0.035"/>
+  <system-out><![CDATA[delete from course_catalog where course_code ='cs306'
+delete from course_catalog where course_code ='cs306'
+Course Successfully removed from course catalog
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

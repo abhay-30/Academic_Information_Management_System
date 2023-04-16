@@ -1,0 +1,46 @@
+
+
+1. test folder contains all the test files for the classes in which all the edges cases are already checked.
+
+    How to check the corrctness :
+    in each funtion in the test file assert funtion have two values expected value and output value (code outcome )  depending upoon the funtionaliy correctness can be checked.
+
+
+
+example of junit test plan-----------------------
+
+class CourseGradesTest {
+
+/////////credentials to login the database ////////////////
+    final String JDBC_DRIVER = "org.postgresql.Driver";
+    final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
+    final String USER = "postgres";
+    final String PASS = "iitropar";
+
+
+    //////////////test funtion to check the funtion CoursesGrades of the class CourseGrades ////////////
+    ///the funtion will return "Printed" if it prints the grades without any error and test will pass if it have any erros the test will be failed.
+    @Test
+    void Printed(){
+        CourseGrades cg = new CourseGrades();
+        assertEquals("Printed",cg.CoursesGrades(DB_URL, USER, PASS, "2020csb1061"));
+    }
+    ////////////test to check the Grades are not printed ////////////////
+    @Test
+    void NotPrinted(){
+        CourseGrades cg = new CourseGrades();
+        assertNotEquals("Printed", cg.CoursesGrades(DB_URL, USER+"123", PASS,"2020csb1061"));
+    }
+
+}
+
+
+
+//////////////////////////jacoco code coverage report //////////////////
+
+file structure : build/reports/jacoco/index.html
+
+
+
+
+

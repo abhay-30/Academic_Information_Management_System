@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>student.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AimsPortal2</a> &gt; <a href="index.source.html" class="el_package">org.example</a> &gt; <span class="el_source">student.java</span></div><h1>student.java</h1><pre class="source lang-java linenums">package org.example;
+
+import java.util.*;
+import java.sql.*;
+
+<span class="fc" id="L6">public class student {</span>
+    String showAvailableCourses(String DB_URL, String USER, String PASS) {
+<span class="fc" id="L8">        Connection c = null;</span>
+<span class="fc" id="L9">        Statement stmt = null;</span>
+<span class="fc" id="L10">        Scanner sc = new Scanner(System.in);</span>
+        try {
+<span class="fc" id="L12">            c = DriverManager.getConnection(DB_URL, USER, PASS);</span>
+<span class="fc" id="L13">            stmt = c.createStatement();</span>
+<span class="fc" id="L14">            String grade_table = &quot;SELECT * FROM offered_courses&quot;;</span>
+<span class="fc" id="L15">            ResultSet rs = stmt.executeQuery(grade_table);</span>
+<span class="fc" id="L16">            ResultSetMetaData rsmd = rs.getMetaData();</span>
+
+<span class="fc" id="L18">            int columnsNumber = rsmd.getColumnCount();</span>
+<span class="fc" id="L19">            int no = 1;</span>
+
+<span class="fc" id="L21">            System.out.printf(&quot;%-20s&quot;, &quot;Course Code &quot;);</span>
+<span class="fc" id="L22">            System.out.printf(&quot;%-80s&quot;, &quot;Course Name&quot;);</span>
+
+<span class="fc" id="L24">            System.out.printf(&quot;%-20s&quot;, &quot;Credit&quot;);</span>
+
+<span class="fc" id="L26">            System.out.printf(&quot;%-20s&quot;, &quot;Category&quot;);</span>
+
+<span class="fc" id="L28">            System.out.printf(&quot;%-20s&quot;, &quot;Cgpa Required&quot;);</span>
+<span class="fc" id="L29">            System.out.printf(&quot;%-20s&quot;, &quot;Pre-requiste Courses&quot;);</span>
+<span class="fc" id="L30">            System.out.println();</span>
+<span class="fc" id="L31">            System.out.println();</span>
+
+<span class="fc bfc" id="L33" title="All 2 branches covered.">            while (rs.next()) {</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">                for (int i = 1; i &lt;= columnsNumber; i++) {</span>
+
+<span class="fc bfc" id="L36" title="All 2 branches covered.">                    if (i == 2) {</span>
+<span class="fc" id="L37">                        System.out.printf(&quot;%-80s&quot;, rs.getString(i));</span>
+                    } else {
+<span class="fc" id="L39">                        System.out.printf(&quot;%-20s&quot;, rs.getString(i));</span>
+                        // System.out.print(&quot; &quot;);
+                    }
+                }
+
+<span class="fc" id="L44">                System.out.println();// Move to the next line to print the next row.</span>
+<span class="fc" id="L45">                no++;</span>
+            }
+<span class="fc" id="L47">            rs.close();</span>
+<span class="fc" id="L48">            System.out.println();</span>
+
+<span class="fc" id="L50">            return &quot;Printed&quot;;</span>
+<span class="fc" id="L51">        } catch (SQLException e) {</span>
+<span class="fc" id="L52">            return e.getMessage();</span>
+        }
+    }
+
+    String ApplyCourse(String DB_URL, String USER, String PASS, String user_id, String course_code) {
+<span class="fc" id="L57">        Connection c = null;</span>
+<span class="fc" id="L58">        Statement stmt = null;</span>
+<span class="fc" id="L59">        Scanner sc = new Scanner(System.in);</span>
+        ////////////////////////////////// cgpa criteria//////////////////
+<span class="fc" id="L61">        float required_cgpa = 0;</span>
+<span class="fc" id="L62">        Cgpa cg = new Cgpa();</span>
+<span class="fc" id="L63">        float current_cgpa = cg.CgpaCalculate(DB_URL, USER, PASS, user_id);</span>
+<span class="fc" id="L64">        String cpgaquery = &quot;select cgpa_criteria from  offered_courses where course_code =&quot; + &quot;\'&quot; + course_code + &quot;\'&quot;;</span>
+
+        try {
+<span class="fc" id="L67">            c = DriverManager.getConnection(DB_URL, USER, PASS);</span>
+<span class="fc" id="L68">            stmt = c.createStatement();</span>
+<span class="fc" id="L69">            ResultSet rs = stmt.executeQuery(cpgaquery);</span>
+<span class="fc" id="L70">            rs.next();</span>
+<span class="fc" id="L71">            required_cgpa = rs.getFloat(1);</span>
+
+<span class="fc" id="L73">            stmt.close();</span>
+<span class="fc" id="L74">            c.close();</span>
+<span class="fc" id="L75">            rs.close();</span>
+<span class="nc" id="L76">        } catch (Exception e) {</span>
+<span class="nc" id="L77">            return e.getMessage();</span>
+
+<span class="fc" id="L79">        }</span>
+
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        if (current_cgpa &lt; required_cgpa) {</span>
+<span class="fc" id="L82">            System.out.println(&quot;Cgpa criteria not fullfilled !!!&quot;);</span>
+<span class="fc" id="L83">            System.out.print(&quot;Current Cgpa :&quot;);</span>
+<span class="fc" id="L84">            System.out.println(current_cgpa);</span>
+<span class="fc" id="L85">            return &quot;cgpa&quot;;</span>
+        } else {
+            /////////////////////////// prereqiustes check //////////////////////////
+<span class="fc" id="L88">            String pre_req_query = &quot;select  prerequisites from offered_courses where course_code =&quot; + &quot;\'&quot; + course_code + &quot;\'&quot;;</span>
+<span class="fc" id="L89">            String pre_req = &quot;{}&quot;;</span>
+            try {
+
+<span class="fc" id="L92">                c = DriverManager.getConnection(DB_URL, USER, PASS);</span>
+<span class="fc" id="L93">                stmt = c.createStatement();</span>
+<span class="fc" id="L94">                ResultSet rs = stmt.executeQuery(pre_req_query);</span>
+<span class="fc" id="L95">                rs.next();</span>
+<span class="fc" id="L96">                pre_req = rs.getString(1);</span>
+//                System.out.println(pre_req);
+<span class="fc" id="L98">                stmt.close();</span>
+<span class="fc" id="L99">                c.close();</span>
+<span class="fc" id="L100">                rs.close();</span>
+<span class="nc" id="L101">            } catch (Exception e) {</span>
+<span class="nc" id="L102">                return e.getMessage();</span>
+<span class="fc" id="L103">            }</span>
+
+<span class="fc" id="L105">            pre_req = pre_req.substring(1, pre_req.length() - 1);</span>
+<span class="fc" id="L106">            System.out.println(pre_req);</span>
+
+<span class="fc" id="L108">            String str = pre_req;</span>
+<span class="fc" id="L109">            String[] res = str.split(&quot;[,]&quot;, 0);</span>
+<span class="fc" id="L110">           int count=0;</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">            for (String myStr : res) {</span>
+
+<span class="fc" id="L113">                String chek_query = &quot;select count(*) from enrollment_list where student_id=&quot; + &quot;\'&quot; + user_id + &quot;\'&quot; + &quot; and  course_code=&quot; + &quot;\'&quot; + myStr + &quot;\'&quot;;</span>
+<span class="fc" id="L114">                int k = 0;</span>
+                try {
+<span class="fc" id="L116">                    c = DriverManager.getConnection(DB_URL, USER, PASS);</span>
+<span class="fc" id="L117">                    stmt = c.createStatement();</span>
+<span class="fc" id="L118">                    ResultSet rs = stmt.executeQuery(chek_query);</span>
+<span class="fc" id="L119">                    rs.next();</span>
+<span class="fc" id="L120">                    k = rs.getInt(1);</span>
+<span class="fc" id="L121">                    stmt.close();</span>
+<span class="fc" id="L122">                    c.close();</span>
+<span class="fc" id="L123">                    rs.close();</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">                    if (k == 0) {</span>
+<span class="fc" id="L125">                        count++;</span>
+
+                    }
+<span class="nc" id="L128">                } catch (Exception e) {</span>
+<span class="nc" id="L129">                    return e.getMessage();</span>
+<span class="fc" id="L130">                }</span>
+            }
+<span class="fc bfc" id="L132" title="All 2 branches covered.">            if(count!=0){</span>
+<span class="fc" id="L133">                return &quot;pre&quot;;</span>
+            }
+
+<span class="fc" id="L136">            float registerid_credits = 0;</span>
+<span class="fc" id="L137">            float course_credit = 0;</span>
+<span class="fc" id="L138">            String register_crdit_query = &quot;select  credits from enrollment_list where course_status =&quot; + &quot;\'&quot; + &quot;running&quot; + &quot;\'&quot; + &quot;and student_id=&quot;</span>
+                    + &quot;\'&quot; + user_id + &quot;\'&quot;;
+            try {
+<span class="fc" id="L141">                c = DriverManager.getConnection(DB_URL, USER, PASS);</span>
+<span class="fc" id="L142">                stmt = c.createStatement();</span>
+
+<span class="fc" id="L144">                ResultSet rs = stmt.executeQuery(register_crdit_query);</span>
+<span class="fc" id="L145">                ResultSetMetaData rsmd = rs.getMetaData();</span>
+
+<span class="fc" id="L147">                int columnsNumber = rsmd.getColumnCount();</span>
+
+<span class="fc bfc" id="L149" title="All 2 branches covered.">                while (rs.next()) {</span>
+                    // Print one row
+<span class="fc bfc" id="L151" title="All 2 branches covered.">                    for (int i = 1; i &lt;= columnsNumber; i++) {</span>
+
+<span class="fc" id="L153">                        registerid_credits += rs.getFloat(i);</span>
+                    }
+                }
+<span class="fc" id="L156">                rs.close();</span>
+<span class="nc" id="L157">            } catch (SQLException e) {</span>
+<span class="nc" id="L158">                return e.getMessage();</span>
+<span class="fc" id="L159">            }</span>
+<span class="fc" id="L160">            String course_cred_query = &quot;select credits from  offered_courses where course_code =&quot; + &quot;\'&quot; + course_code + &quot;\'&quot;;</span>
+            try {
+<span class="fc" id="L162">                c = DriverManager.getConnection(DB_URL, USER, PASS);</span>
+<span class="fc" id="L163">                stmt = c.createStatement();</span>
+<span class="fc" id="L164">                ResultSet rs = stmt.executeQuery(course_cred_query);</span>
+<span class="fc" id="L165">                rs.next();</span>
+<span class="fc" id="L166">                course_credit = rs.getFloat(1);</span>
+<span class="fc" id="L167">                stmt.close();</span>
+<span class="fc" id="L168">                c.close();</span>
+<span class="fc" id="L169">                rs.close();</span>
+<span class="nc" id="L170">            } catch (Exception e) {</span>
+<span class="nc" id="L171">                return e.getMessage();</span>
+<span class="fc" id="L172">            }</span>
+            /////////////last two sems /////////////////////////
+<span class="fc" id="L174">            details obj = new details();</span>
+<span class="fc" id="L175">            int current_year = obj.current_year;</span>
+<span class="fc" id="L176">            String current_sem = obj.current_sem;</span>
+<span class="fc" id="L177">            String last_sem = &quot;&quot;;</span>
+<span class="fc" id="L178">            String second_last_sem = &quot;&quot;;</span>
+            int last_year;
+            int second_last_year;
+
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">            if (current_sem == &quot;I&quot;) {</span>
+<span class="fc" id="L183">                last_year = current_year - 1;</span>
+<span class="fc" id="L184">                last_sem = &quot;II&quot;;</span>
+<span class="fc" id="L185">                second_last_year = current_year - 1;</span>
+<span class="fc" id="L186">                second_last_sem = &quot;I&quot;;</span>
+            } else {
+<span class="nc" id="L188">                last_year = current_year;</span>
+<span class="nc" id="L189">                last_sem = &quot;I&quot;;</span>
+<span class="nc" id="L190">                second_last_year = current_year - 1;</span>
+<span class="nc" id="L191">                second_last_sem = &quot;II&quot;;</span>
+
+            }
+
+<span class="fc" id="L195">            String query1 = &quot;Select  sum(credits) from enrollment_list where student_id=&quot; + &quot;\'&quot; + user_id + &quot;\'&quot; + &quot;and year =&quot; + &quot;\'&quot; + last_year + &quot;\'&quot; + &quot;and sem=&quot; + &quot;\'&quot; + last_sem +</span>
+                    &quot;\'&quot; + &quot;and course_status= &quot; + &quot;\'&quot; + &quot;completed&quot; + &quot;\'&quot;;
+
+<span class="fc" id="L198">            String query2 = &quot;Select sum(credits) from enrollment_list where student_id=&quot; + &quot;\'&quot; + user_id + &quot;\'&quot; + &quot;and year =&quot; + &quot;\'&quot; + second_last_year + &quot;\'&quot; + &quot;and sem=&quot; + &quot;\'&quot; + second_last_sem +</span>
+                    &quot;\'&quot; + &quot;and course_status= &quot; + &quot;\'&quot; + &quot;completed&quot; + &quot;\'&quot;;
+
+//            System.out.println(query2);
+//            System.out.println(query1);
+<span class="fc" id="L203">            float last_credit=0;</span>
+<span class="fc" id="L204">            float second_last_credit=0;</span>
+            try {
+<span class="fc" id="L206">                c = DriverManager.getConnection(DB_URL, USER, PASS);</span>
+<span class="fc" id="L207">                stmt = c.createStatement();</span>
+<span class="fc" id="L208">                ResultSet rs = stmt.executeQuery(query1);</span>
+<span class="fc" id="L209">                rs.next();</span>
+<span class="fc" id="L210">                course_credit = rs.getFloat(1);</span>
+<span class="fc" id="L211">                stmt.close();</span>
+<span class="fc" id="L212">                c.close();</span>
+<span class="fc" id="L213">                rs.close();</span>
+<span class="nc" id="L214">            } catch (Exception e) {</span>
+<span class="nc" id="L215">                return e.getMessage();</span>
+<span class="fc" id="L216">            }</span>
+
+
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">            if (course_credit + registerid_credits &lt;= 24) {</span>
+
+<span class="fc" id="L221">                String insert_query = &quot;INSERT INTO approve_students values  ( &quot; + &quot;\'&quot; + user_id + &quot;\'&quot; + &quot;,\'&quot; + course_code + &quot;\'&quot; + &quot;,&quot; + &quot;\'&quot; + &quot;Pendig  Instructor approval &quot; + &quot;\' )&quot;;</span>
+<span class="fc" id="L222">                System.out.println(insert_query);</span>
+                try {
+<span class="fc" id="L224">                    c = DriverManager.getConnection(DB_URL, USER, PASS);</span>
+<span class="fc" id="L225">                    stmt = c.createStatement();</span>
+<span class="fc" id="L226">                    stmt.execute(insert_query);</span>
+<span class="fc" id="L227">                    stmt.close();</span>
+<span class="fc" id="L228">                    c.close();</span>
+
+<span class="fc" id="L230">                    System.out.println(&quot;Pending Instructor approval .&quot;);</span>
+<span class="fc" id="L231">                    return &quot;success&quot;;</span>
+
+<span class="nc" id="L233">                } catch (Exception e) {</span>
+<span class="nc" id="L234">                    return e.getMessage();</span>
+                }
+            } else {
+<span class="nc" id="L237">                System.out.println(&quot;Cannot enroll Credit limit exceedeed !!!&quot;);</span>
+<span class="nc" id="L238">                return &quot;credit&quot;;</span>
+
+            }
+
+        }
+
+    }
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.LoginTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-03-07T16:42:57" hostname="abhay" time="0.472">
+  <properties/>
+  <testcase name="ErrorCheck()" classname="org.example.LoginTest" time="0.032"/>
+  <testcase name="StudentCorrectDetails()" classname="org.example.LoginTest" time="0.067"/>
+  <testcase name="InstructorWrongPasswordCheck()" classname="org.example.LoginTest" time="0.068"/>
+  <testcase name="InstructorCorrectDetails()" classname="org.example.LoginTest" time="0.064"/>
+  <testcase name="AcadWrongPasswordCheck()" classname="org.example.LoginTest" time="0.069"/>
+  <testcase name="StudentWrongEmailCheck()" classname="org.example.LoginTest" time="0.033"/>
+  <testcase name="AcadCorrectDetails()" classname="org.example.LoginTest" time="0.067"/>
+  <testcase name="StudentWrongPasswordCheck()" classname="org.example.LoginTest" time="0.066"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

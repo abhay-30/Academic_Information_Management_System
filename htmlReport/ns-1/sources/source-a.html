@@ -1,0 +1,409 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Main</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.example</a>
+</div>
+
+<h1>Coverage Summary for Class: Main (org.example)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Main</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/184)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.example;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.*;
+&nbsp;import java.sql.*;
+&nbsp;
+&nbsp;import org.example.student;
+&nbsp;import org.example.Instructor;
+&nbsp;import org.example.Academics;
+&nbsp;import org.example.CourseGrades;
+&nbsp;import org.example.Login;
+&nbsp;
+<b class="nc">&nbsp;public class Main {</b>
+&nbsp;    public static void main(String[] args) throws IOException {
+<b class="nc">&nbsp;        final String JDBC_DRIVER = &quot;org.postgresql.Driver&quot;;</b>
+<b class="nc">&nbsp;        final String DB_URL = &quot;jdbc:postgresql://localhost:5432/postgres&quot;;</b>
+<b class="nc">&nbsp;        final String USER = &quot;postgres&quot;;</b>
+<b class="nc">&nbsp;        final String PASS = &quot;iitropar&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;        Connection c = null;</b>
+<b class="nc">&nbsp;        Statement stmt = null;</b>
+<b class="nc">&nbsp;        Scanner sc = new Scanner(System.in);</b>
+&nbsp;
+&nbsp;        while (true) {
+<b class="nc">&nbsp;            System.out.println(&quot;*************************Welcome to aims portal !!! *******************************&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Enter 1 for Student Login ...&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Enter 2 for Instructor Login...&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Enter 3 for Academics Login ...&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Enter 4 to go to previous menu ...&quot;);</b>
+<b class="nc">&nbsp;            int a = sc.nextInt();</b>
+<b class="nc">&nbsp;            String role = &quot;&quot;;</b>
+<b class="nc">&nbsp;            if (a == 1) {</b>
+&nbsp;                while (true) {
+<b class="nc">&nbsp;                    role = &quot;student&quot;;</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Enter 1 to go to login Page.&quot;);</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Enter 2 to go to previous menu. &quot;);</b>
+<b class="nc">&nbsp;                    int temp = sc.nextInt();</b>
+<b class="nc">&nbsp;                    if (temp == 1) {</b>
+<b class="nc">&nbsp;                        System.out.println();</b>
+<b class="nc">&nbsp;                        System.out.println(&quot;Enter your email address&quot;);</b>
+<b class="nc">&nbsp;                        String email_id = sc.next();</b>
+<b class="nc">&nbsp;                        System.out.println();</b>
+<b class="nc">&nbsp;                        System.out.println(&quot;Enter your password&quot;);</b>
+<b class="nc">&nbsp;                        String pass = sc.next();</b>
+&nbsp;
+&nbsp;                 /////////////////////////Calling Login funtion /////////////////////////////////////////////////////
+<b class="nc">&nbsp;                        String log = Login.LoginCheck(DB_URL, USER, PASS, role, email_id, pass);</b>
+&nbsp;
+<b class="nc">&nbsp;                        if (log.equals(&quot;LoggedIn&quot;)) {</b>
+<b class="nc">&nbsp;                            System.out.println();</b>
+<b class="nc">&nbsp;                            System.out.println(&quot;*****************LoggedIn Successfully*********************&quot;);</b>
+&nbsp;                            while (true) {
+&nbsp;
+<b class="nc">&nbsp;                                String user_id = &quot;2020csb1061&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 1 to view you grades&quot;);</b>
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 2 to view course offered for enrollment&quot;);</b>
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 3 to view you current CGPA&quot;);</b>
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 4  to check the status of elective course&quot;);</b>
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 5  to check the graduation details &quot;);</b>
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 6 to go back to previos menu&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                                int choice = sc.nextInt();</b>
+&nbsp;
+<b class="nc">&nbsp;                                if (choice == 1) {</b>
+<b class="nc">&nbsp;                                    CourseGrades.CoursesGrades(DB_URL, USER, PASS, user_id);</b>
+<b class="nc">&nbsp;                                } else if (choice == 2) {</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                                } else if (choice == 3) {</b>
+&nbsp;
+<b class="nc">&nbsp;                                    System.out.println(&quot;Your Cgpa is   :&quot; + Cgpa.CgpaCalculate(DB_URL, USER, PASS, user_id));</b>
+&nbsp;
+<b class="nc">&nbsp;                                } else if (choice == 4) {</b>
+&nbsp;
+<b class="nc">&nbsp;                                    System.out.println(&quot;Enter the course code whose status you want to chekc &quot;);</b>
+<b class="nc">&nbsp;                                    String course_code = sc.next();</b>
+&nbsp;
+<b class="nc">&nbsp;                                    CourseStatus.CourseStatusCheck(DB_URL, USER, PASS, user_id, course_code);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                                } else if (choice == 5) {</b>
+&nbsp;                                    ////////check the graudation detains of the user
+<b class="nc">&nbsp;                                } else if (choice == 6) {</b>
+<b class="nc">&nbsp;                                    break;</b>
+&nbsp;                                }
+&nbsp;
+<b class="nc">&nbsp;                            }</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                        } else if (log.equals(&quot;NotLoggedIn&quot;)) {</b>
+<b class="nc">&nbsp;                            System.out.println();</b>
+<b class="nc">&nbsp;                            System.out.println(&quot;******************Incorrect Password**************************&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                        } else if (log.equals(&quot;WrongEmail&quot;)) {</b>
+<b class="nc">&nbsp;                            System.out.println();</b>
+<b class="nc">&nbsp;                            System.out.println(&quot;Email does not exist &quot;);</b>
+&nbsp;
+&nbsp;                        } else {
+<b class="nc">&nbsp;                            System.out.println();</b>
+<b class="nc">&nbsp;                            System.out.println(log);</b>
+&nbsp;
+&nbsp;                        }
+&nbsp;
+&nbsp;                    } else {
+&nbsp;                        break;
+&nbsp;                    }
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                }</b>
+&nbsp;
+<b class="nc">&nbsp;            } else if (a == 2) {</b>
+&nbsp;
+&nbsp;                while (true) {
+<b class="nc">&nbsp;                    role = &quot;instructor&quot;;</b>
+<b class="nc">&nbsp;                    System.out.println();</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Enter your email address&quot;);</b>
+<b class="nc">&nbsp;                    String email_id = sc.next();</b>
+<b class="nc">&nbsp;                    System.out.println();</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Enter your password&quot;);</b>
+<b class="nc">&nbsp;                    String pass = sc.next();</b>
+&nbsp;
+&nbsp;
+&nbsp;                    while (true) {
+<b class="nc">&nbsp;                        String log = Login.LoginCheck(DB_URL, USER, PASS, role, email_id, pass);</b>
+&nbsp;
+<b class="nc">&nbsp;                        if (log.equals(&quot;LoggedIn&quot;)) {</b>
+<b class="nc">&nbsp;                            System.out.println();</b>
+<b class="nc">&nbsp;                            System.out.println(&quot;*****************LoggedIn Successfully*********************&quot;);</b>
+&nbsp;                            while (true) {
+&nbsp;
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 1 to view grades of a student: &quot;);</b>
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 2  for register/derigister for a course  &quot;);</b>
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 3 to update marks of students &quot;);</b>
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 4 to approve elective course students  &quot;);</b>
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 5 to go the previous menu &quot;);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                                int choice = sc.nextInt();</b>
+<b class="nc">&nbsp;                                if (choice == 1) {</b>
+&nbsp;
+<b class="nc">&nbsp;                                    System.out.println(&quot;Enter 1 to view  individual student marks &quot;);</b>
+<b class="nc">&nbsp;                                    System.out.println(&quot;Enter 2 to view  whole class  marks of a course &quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                                } else if (choice == 2) {</b>
+&nbsp;
+<b class="nc">&nbsp;                                    System.out.println(&quot;Enter 1 to rigister a couse&quot;);</b>
+<b class="nc">&nbsp;                                    System.out.println(&quot;Enter 2 to dergister a couse&quot;);</b>
+<b class="nc">&nbsp;                                    int opt = sc.nextInt();</b>
+<b class="nc">&nbsp;                                    if (opt == 1) {</b>
+<b class="nc">&nbsp;                                        System.out.println(&quot;Enter the course code&quot;);</b>
+<b class="nc">&nbsp;                                        String course_code = sc.next();</b>
+<b class="nc">&nbsp;                                        System.out.println(&quot;Enter the course title&quot;);</b>
+<b class="nc">&nbsp;                                        String course_title = sc.next();</b>
+<b class="nc">&nbsp;                                        System.out.println(&quot;Enter the course LTP structure&quot;);</b>
+<b class="nc">&nbsp;                                        String course_ltp = sc.next();</b>
+<b class="nc">&nbsp;                                        System.out.println(&quot;Enter the prerequistes courses code  specified by comma &quot;);</b>
+<b class="nc">&nbsp;                                        String course_prereq = sc.next();</b>
+&nbsp;
+<b class="nc">&nbsp;                                        CourseRegister.CourseRegistration(DB_URL, USER, PASS, course_code, course_title, course_ltp, course_prereq);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                                    } else if (opt == 2) {</b>
+&nbsp;
+<b class="nc">&nbsp;                                        System.out.println(&quot;Enter the course code &quot;);</b>
+<b class="nc">&nbsp;                                        String course_code = sc.next();</b>
+<b class="nc">&nbsp;                                        CourseDeRegister.CourseDeRegistration(DB_URL, USER, PASS, course_code);</b>
+&nbsp;
+<b class="nc">&nbsp;                                    } else if (choice == 3) {</b>
+<b class="nc">&nbsp;                                        System.out.println(&quot;Enter the course code &quot;);</b>
+<b class="nc">&nbsp;                                        String course_code = sc.next();</b>
+<b class="nc">&nbsp;                                        System.out.print(&quot;Enter the full path of csv file :&quot;);</b>
+<b class="nc">&nbsp;                                        String path = sc.next();</b>
+<b class="nc">&nbsp;                                        String csvFilePath = path;</b>
+&nbsp;///fucntion call ///////////////
+<b class="nc">&nbsp;                                        MarksUpload.MarksUploadThroughCSV(DB_URL, USER, PASS, course_code, csvFilePath);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                                    } else if (choice == 4) {</b>
+<b class="nc">&nbsp;                                        System.out.println(&quot;Enter the course code for to see the list of students&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                                        String course_code = sc.next();</b>
+&nbsp;                                        // System.out.println(course_code);
+&nbsp;
+<b class="nc">&nbsp;                                        Instructor.InstructorApprove(DB_URL, USER, PASS, course_code);</b>
+<b class="nc">&nbsp;                                    } else if (choice == 5) {</b>
+<b class="nc">&nbsp;                                        break;</b>
+&nbsp;                                    }
+&nbsp;                                }
+<b class="nc">&nbsp;                            }</b>
+<b class="nc">&nbsp;                        } else if (log.equals(&quot;NotLoggedIn&quot;)) {</b>
+<b class="nc">&nbsp;                            System.out.println();</b>
+<b class="nc">&nbsp;                            System.out.println(&quot;******************Incorrect Password**************************&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                        } else if (log.equals(&quot;WrongEmail&quot;)) {</b>
+<b class="nc">&nbsp;                            System.out.println();</b>
+<b class="nc">&nbsp;                            System.out.println(&quot;Email does not exist &quot;);</b>
+&nbsp;
+&nbsp;                        } else {
+<b class="nc">&nbsp;                            System.out.println();</b>
+<b class="nc">&nbsp;                            System.out.println(log);</b>
+&nbsp;                        }
+<b class="nc">&nbsp;                    }</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;            } else if (a == 3) {</b>
+&nbsp;                while (true) {
+<b class="nc">&nbsp;                    role = &quot;academics&quot;;</b>
+<b class="nc">&nbsp;                    System.out.println();</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Enter your email address&quot;);</b>
+<b class="nc">&nbsp;                    String email_id = sc.next();</b>
+<b class="nc">&nbsp;                    System.out.println();</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Enter your password&quot;);</b>
+<b class="nc">&nbsp;                    String pass = sc.next();</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                    String log = Login.LoginCheck(DB_URL, USER, PASS, role, email_id, pass);</b>
+&nbsp;
+<b class="nc">&nbsp;                    if (log.equals(&quot;LoggedIn&quot;)) {</b>
+<b class="nc">&nbsp;                        System.out.println();</b>
+<b class="nc">&nbsp;                        System.out.println(&quot;*****************LoggedIn Successfully*********************&quot;);</b>
+&nbsp;                        while (true) {
+&nbsp;
+<b class="nc">&nbsp;                            System.out.println(&quot;Enter 1 to edit the course catalog&quot;);</b>
+<b class="nc">&nbsp;                            System.out.println(&quot;Enter 2  view grades of all user&quot;);</b>
+<b class="nc">&nbsp;                            System.out.println(&quot;Enter 3 to generate transcript of a student&quot;);</b>
+<b class="nc">&nbsp;                            System.out.println(&quot;Enter 4 to see the list of students applied for elective &quot;);</b>
+<b class="nc">&nbsp;                            System.out.println(&quot;Enter 5 to go to the previous menu &quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                            int choice = sc.nextInt();</b>
+<b class="nc">&nbsp;                            if (choice == 1) {</b>
+&nbsp;
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 1 to add/edit a course&quot;);</b>
+<b class="nc">&nbsp;                                System.out.println(&quot;Enter 2 to drop a course&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                                int choice1 = sc.nextInt();</b>
+<b class="nc">&nbsp;                                if (choice1 == 1) {</b>
+&nbsp;
+<b class="nc">&nbsp;                                    System.out.println(&quot;Enter the course code&quot;);</b>
+<b class="nc">&nbsp;                                    String course_code = sc.next();</b>
+<b class="nc">&nbsp;                                    System.out.println(&quot;Enter the course title&quot;);</b>
+<b class="nc">&nbsp;                                    String course_title = sc.next();</b>
+<b class="nc">&nbsp;                                    System.out.println(&quot;Enter the course LTP structure&quot;);</b>
+<b class="nc">&nbsp;                                    String course_ltp = sc.next();</b>
+<b class="nc">&nbsp;                                    System.out.println(&quot;Enter the prerequistes courses code  specified by comma &quot;);</b>
+<b class="nc">&nbsp;                                    String course_prereq = sc.next();</b>
+&nbsp;                                    /////////////////////////////
+<b class="nc">&nbsp;                                    CourseRegister.CourseRegistration(DB_URL, USER, PASS, course_code, course_title, course_ltp, course_prereq);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                                } else if (choice1 == 2) {</b>
+&nbsp;
+<b class="nc">&nbsp;                                    System.out.println(&quot;Enter the course code &quot;);</b>
+<b class="nc">&nbsp;                                    String course_code = sc.next();</b>
+&nbsp;                                    ////////////////////////////////////
+<b class="nc">&nbsp;                                    CourseDeRegister.CourseDeRegistration(DB_URL, PASS, USER, course_code);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                                } else if (choice == 2) {</b>
+&nbsp;
+<b class="nc">&nbsp;                                } else if (choice == 3) {</b>
+<b class="nc">&nbsp;                                    System.out.println(&quot;Enter the useer id of the student&quot;);</b>
+<b class="nc">&nbsp;                                    String user_id = sc.next();</b>
+<b class="nc">&nbsp;                                    System.out.println(&quot;Your generated transcript is as follows  &quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                                    Academics.GenerateTranscript(DB_URL, USER, PASS, user_id);</b>
+<b class="nc">&nbsp;                                } else if (choice == 4) {</b>
+<b class="nc">&nbsp;                                    System.out.println(&quot;Enter the course code for to see the list of students&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                                    String course_code = sc.next();</b>
+&nbsp;                                    // System.out.println(course_code);
+<b class="nc">&nbsp;                                    Academics.AcademicsApprove(DB_URL, USER, PASS, course_code);</b>
+&nbsp;
+&nbsp;
+&nbsp;                                }
+&nbsp;
+<b class="nc">&nbsp;                            } else if (choice == 5) {</b>
+<b class="nc">&nbsp;                                break;</b>
+&nbsp;                            }
+<b class="nc">&nbsp;                        }</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                    } else if (log.equals(&quot;NotLoggedIn&quot;)) {</b>
+<b class="nc">&nbsp;                        System.out.println();</b>
+<b class="nc">&nbsp;                        System.out.println(&quot;******************Incorrect Password**************************&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                    } else if (log.equals(&quot;WrongEmail&quot;)) {</b>
+<b class="nc">&nbsp;                        System.out.println();</b>
+<b class="nc">&nbsp;                        System.out.println(&quot;Email does not exist &quot;);</b>
+&nbsp;
+&nbsp;                    } else {
+<b class="nc">&nbsp;                        System.out.println();</b>
+<b class="nc">&nbsp;                        System.out.println(log);</b>
+&nbsp;
+&nbsp;                    }
+<b class="nc">&nbsp;                }</b>
+&nbsp;
+<b class="nc">&nbsp;            } else if (a == 4) {</b>
+&nbsp;
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-06 15:47</div>
+</div>
+</body>
+</html>

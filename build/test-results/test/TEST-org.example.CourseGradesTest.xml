@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.CourseGradesTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-03-07T16:42:56" hostname="abhay" time="0.071">
+  <properties/>
+  <testcase name="NotPrinted()" classname="org.example.CourseGradesTest" time="0.037"/>
+  <testcase name="Printed()" classname="org.example.CourseGradesTest" time="0.033"/>
+  <system-out><![CDATA[Course Code    Course Name                                                            Grade         Category       Credits        
+Course Code    Course Name                                                            Grade         Category       Credits        
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

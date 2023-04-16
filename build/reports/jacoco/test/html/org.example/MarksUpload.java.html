@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MarksUpload.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AimsPortal2</a> &gt; <a href="index.source.html" class="el_package">org.example</a> &gt; <span class="el_source">MarksUpload.java</span></div><h1>MarksUpload.java</h1><pre class="source lang-java linenums">package org.example;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.*;
+
+<span class="fc" id="L8">public class MarksUpload {</span>
+    String MarksUploadThroughCSV(String DB_URL, String USER, String PASS, String course_code, String csvFilePath) {
+<span class="fc" id="L10">        int batchSize = 20;</span>
+<span class="fc" id="L11">        Connection connection = null;</span>
+<span class="fc" id="L12">        Statement stmt = null;</span>
+<span class="fc" id="L13">        Connection c = null;</span>
+        try {
+
+<span class="fc" id="L16">            connection = DriverManager.getConnection(DB_URL, USER, PASS);</span>
+<span class="fc" id="L17">            connection.setAutoCommit(false);</span>
+
+<span class="fc" id="L19">            String sql = &quot;insert into  grades_update (entry_no, grade) VALUES (?, ?)&quot;;</span>
+<span class="fc" id="L20">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+
+<span class="fc" id="L22">            BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));</span>
+<span class="fc" id="L23">            String lineText = null;</span>
+
+<span class="fc" id="L25">            int count = 0;</span>
+
+<span class="fc" id="L27">            lineReader.readLine(); // skip header line</span>
+
+<span class="fc bfc" id="L29" title="All 2 branches covered.">            while ((lineText = lineReader.readLine()) != null) {</span>
+<span class="fc" id="L30">                String[] data = lineText.split(&quot;,&quot;);</span>
+<span class="fc" id="L31">                String entry_no = data[0];</span>
+<span class="fc" id="L32">                String grade = data[1];</span>
+<span class="fc" id="L33">                statement.setString(1, entry_no);</span>
+<span class="fc" id="L34">                statement.setString(2, grade);</span>
+
+<span class="fc" id="L36">                statement.addBatch();</span>
+
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">                if (count % batchSize == 0) {</span>
+<span class="fc" id="L39">                    statement.executeBatch();</span>
+                }
+<span class="fc" id="L41">            }</span>
+
+<span class="fc" id="L43">            lineReader.close();</span>
+
+            // execute the remaining queries
+<span class="fc" id="L46">            statement.executeBatch();</span>
+
+<span class="fc" id="L48">            connection.commit();</span>
+<span class="fc" id="L49">            connection.close();</span>
+
+<span class="nc" id="L51">        } catch (IOException ex) {</span>
+<span class="nc" id="L52">            System.err.println(ex);</span>
+<span class="nc" id="L53">            return &quot;false&quot;;</span>
+<span class="fc" id="L54">        } catch (SQLException ex) {</span>
+<span class="fc" id="L55">            ex.printStackTrace();</span>
+
+
+<span class="fc" id="L58">            return &quot;false&quot;;</span>
+<span class="fc" id="L59">        }</span>
+
+<span class="fc" id="L61">        String updatequery = &quot;update enrollment_list set grade=grades_update.grade from grades_update where enrollment_list.student_id=grades_update.entry_no&quot; +&quot; and enrollment_list.course_code =&quot; + &quot;\'&quot; + course_code + &quot;\'&quot;;</span>
+
+<span class="fc" id="L63">        String deltequery = &quot;delete from grades_update&quot;;</span>
+
+        try {
+
+<span class="fc" id="L67">            c = DriverManager.getConnection(DB_URL, USER, PASS);</span>
+<span class="fc" id="L68">            stmt = c.createStatement();</span>
+<span class="fc" id="L69">            stmt.execute(updatequery);</span>
+<span class="fc" id="L70">            stmt.execute(deltequery);</span>
+<span class="fc" id="L71">            stmt.close();</span>
+<span class="fc" id="L72">            c.close();</span>
+
+<span class="fc" id="L74">            System.out.println(&quot; Grades updated successfully&quot;);</span>
+<span class="fc" id="L75">            return &quot;true&quot;;</span>
+
+<span class="nc" id="L77">        } catch (Exception e) {</span>
+<span class="nc" id="L78">            System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
+<span class="nc" id="L79">            return &quot;false&quot;;</span>
+        }
+
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

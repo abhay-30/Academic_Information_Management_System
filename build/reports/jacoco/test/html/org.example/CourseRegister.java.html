@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CourseRegister.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AimsPortal2</a> &gt; <a href="index.source.html" class="el_package">org.example</a> &gt; <span class="el_source">CourseRegister.java</span></div><h1>CourseRegister.java</h1><pre class="source lang-java linenums">package org.example;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+<span class="fc" id="L7">public class CourseRegister {</span>
+         String  CourseRegistration(String DB_URL, String USER, String PASS, String course_code, String course_title, String course_ltp, String course_prereq){
+<span class="fc" id="L9">        Connection c = null;</span>
+<span class="fc" id="L10">        Statement stmt = null;</span>
+<span class="fc" id="L11">        String register_query = &quot;&quot;;</span>
+<span class="fc" id="L12">        register_query = &quot;insert into course_catalog values &quot; + &quot;(&quot; + '\'' + course_code + '\'' + &quot;,&quot; + '\''</span>
+                + course_title + '\'' + &quot;,&quot; + '\'' + course_ltp + '\'' + &quot;,&quot; + '\'' + &quot;{&quot; + course_prereq + &quot;}&quot;
+                + '\'' + &quot;)&quot;;
+<span class="fc" id="L15">         System.out.println(register_query);</span>
+
+        try {
+
+<span class="fc" id="L19">            c = DriverManager.getConnection(DB_URL, USER, PASS);</span>
+<span class="fc" id="L20">            stmt = c.createStatement();</span>
+<span class="fc" id="L21">            stmt.execute(register_query);</span>
+<span class="fc" id="L22">            stmt.close();</span>
+<span class="fc" id="L23">            c.close();</span>
+
+<span class="fc" id="L25">            System.out.println(&quot;Course registerd in course catalog succesfuuly &quot;);</span>
+<span class="fc" id="L26">           return &quot;true&quot;;</span>
+
+<span class="fc" id="L28">        } catch (Exception e) {</span>
+<span class="fc" id="L29">            System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
+<span class="fc" id="L30">          return &quot;false&quot;;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

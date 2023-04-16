@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.CourseRegisterTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-03-07T16:42:56" hostname="abhay" time="0.071">
+  <properties/>
+  <testcase name="registersuccessful()" classname="org.example.CourseRegisterTest" time="0.039"/>
+  <testcase name="registerunsuccessful()" classname="org.example.CourseRegisterTest" time="0.031"/>
+  <system-out><![CDATA[insert into course_catalog values ('cs306','Theory of Computation','3-0-2','{cs201}')
+Course registerd in course catalog succesfuuly 
+insert into course_catalog values ('cs306','Theory of Computation','3-0-2','{cs201}')
+]]></system-out>
+  <system-err><![CDATA[org.postgresql.util.PSQLException: FATAL: database "postgres123" does not exist
+]]></system-err>
+</testsuite>

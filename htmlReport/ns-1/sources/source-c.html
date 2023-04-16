@@ -1,0 +1,377 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > student</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.example</a>
+</div>
+
+<h1>Coverage Summary for Class: student (org.example)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">student</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/136)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.example;
+&nbsp;
+&nbsp;import java.io.BufferedReader;
+&nbsp;import java.io.BufferedWriter;
+&nbsp;import java.io.InputStreamReader;
+&nbsp;import java.io.OutputStreamWriter;
+&nbsp;import java.io.PrintWriter;
+&nbsp;import java.io.IOException;
+&nbsp;import java.net.ServerSocket;
+&nbsp;import java.net.Socket;
+&nbsp;import java.util.concurrent.ExecutorService;
+&nbsp;import java.util.concurrent.Executors;
+&nbsp;import java.util.*;
+&nbsp;import java.sql.*;
+&nbsp;
+&nbsp;import org.example.Cgpa;
+&nbsp;import org.example.CourseGrades;
+&nbsp;import org.example.CourseStatus;
+&nbsp;
+<b class="nc">&nbsp;public class student {</b>
+&nbsp;
+&nbsp;    public static void AddCourse(String DB_URL, String USER, String PASS, String user_id) {
+<b class="nc">&nbsp;        Connection c = null;</b>
+<b class="nc">&nbsp;        Statement stmt = null;</b>
+<b class="nc">&nbsp;        Scanner sc = new Scanner(System.in);</b>
+&nbsp;
+&nbsp;        {
+&nbsp;
+&nbsp;            try {
+&nbsp;
+<b class="nc">&nbsp;                c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;                stmt = c.createStatement();</b>
+<b class="nc">&nbsp;                String grade_table = &quot;SELECT * FROM offered_courses&quot;;</b>
+<b class="nc">&nbsp;                ResultSet rs = stmt.executeQuery(grade_table);</b>
+<b class="nc">&nbsp;                ResultSetMetaData rsmd = rs.getMetaData();</b>
+&nbsp;
+<b class="nc">&nbsp;                int columnsNumber = rsmd.getColumnCount();</b>
+&nbsp;                // System.out.println(rs.getString(0));
+<b class="nc">&nbsp;                int no = 1;</b>
+&nbsp;
+<b class="nc">&nbsp;                System.out.printf(&quot;%-20s&quot;, &quot;Course Code &quot;);</b>
+<b class="nc">&nbsp;                System.out.printf(&quot;%-80s&quot;, &quot;Course Name&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                System.out.printf(&quot;%-20s&quot;, &quot;Credit&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                System.out.printf(&quot;%-20s&quot;, &quot;Category&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                System.out.printf(&quot;%-20s&quot;, &quot;Cgpa Required&quot;);</b>
+<b class="nc">&nbsp;                System.out.printf(&quot;%-20s&quot;, &quot;Pre-requiste Courses&quot;);</b>
+<b class="nc">&nbsp;                System.out.println();</b>
+<b class="nc">&nbsp;                System.out.println();</b>
+&nbsp;
+<b class="nc">&nbsp;                while (rs.next()) {</b>
+&nbsp;                    // Print one row
+&nbsp;                    // System.out.print(no + &quot;-----&gt; &quot;);
+<b class="nc">&nbsp;                    for (int i = 1; i &lt;= columnsNumber; i++) {</b>
+&nbsp;
+<b class="nc">&nbsp;                        if (i == 2) {</b>
+<b class="nc">&nbsp;                            System.out.printf(&quot;%-80s&quot;, rs.getString(i));</b>
+&nbsp;                        } else {
+<b class="nc">&nbsp;                            System.out.printf(&quot;%-20s&quot;, rs.getString(i));</b>
+&nbsp;                            // System.out.print(&quot; &quot;);
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;
+<b class="nc">&nbsp;                    System.out.println();// Move to the next line to print the next row.</b>
+<b class="nc">&nbsp;                    no++;</b>
+&nbsp;                }
+<b class="nc">&nbsp;                rs.close();</b>
+<b class="nc">&nbsp;            } catch (SQLException e) {</b>
+<b class="nc">&nbsp;                System.err.println(e.getMessage());</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+<b class="nc">&nbsp;            System.out.println();</b>
+&nbsp;            // System.out.println(&quot;///////////////Write the logic for course apply here
+&nbsp;            // ///////////// &quot;);
+<b class="nc">&nbsp;            System.out.println(&quot;Enter the course code in which you want to enroll : &quot;);</b>
+<b class="nc">&nbsp;            String course_code = sc.next();</b>
+&nbsp;
+&nbsp;            ////////////////////////////////// cgpa criteria
+&nbsp;            ////////////////////////////////// //////////////////////////////////
+<b class="nc">&nbsp;            float required_cgpa = 0;</b>
+<b class="nc">&nbsp;            float current_cgpa = Cgpa.CgpaCalculate(DB_URL, USER, PASS, user_id);</b>
+<b class="nc">&nbsp;            String cpgaquery = &quot;select cgpa_criteria from  offered_courses where course_code =&quot; + &quot;\&#39;&quot; + course_code + &quot;\&#39;&quot;;</b>
+&nbsp;
+&nbsp;            try {
+&nbsp;
+<b class="nc">&nbsp;                c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;                stmt = c.createStatement();</b>
+<b class="nc">&nbsp;                ResultSet rs = stmt.executeQuery(cpgaquery);</b>
+<b class="nc">&nbsp;                rs.next();</b>
+<b class="nc">&nbsp;                required_cgpa = rs.getFloat(1);</b>
+&nbsp;                // System.out.println(train_count);
+&nbsp;
+<b class="nc">&nbsp;                stmt.close();</b>
+<b class="nc">&nbsp;                c.close();</b>
+<b class="nc">&nbsp;                rs.close();</b>
+&nbsp;                // break;
+&nbsp;
+<b class="nc">&nbsp;            } catch (Exception e) {</b>
+<b class="nc">&nbsp;                System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;                System.exit(0);</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+<b class="nc">&nbsp;            if (current_cgpa &lt; required_cgpa) {</b>
+&nbsp;
+<b class="nc">&nbsp;                System.out.println(&quot;Cgpa criteria not fullfilled !!!&quot;);</b>
+<b class="nc">&nbsp;                System.out.print(&quot;Current Cgpa :&quot;);</b>
+<b class="nc">&nbsp;                System.out.println(current_cgpa);</b>
+&nbsp;
+&nbsp;                // System.out.print(&quot;&quot;);
+&nbsp;
+&nbsp;            } else {
+&nbsp;
+&nbsp;                /////////////////////////// prereqiustes check //////////////////////////
+&nbsp;
+<b class="nc">&nbsp;                String pre_req_query = &quot;select  prerequisites from offered_courses where course_code =&quot; + &quot;\&#39;&quot; + course_code + &quot;\&#39;&quot;;</b>
+<b class="nc">&nbsp;                String pre_req = &quot;&quot;;</b>
+&nbsp;                try {
+&nbsp;
+<b class="nc">&nbsp;                    c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;                    stmt = c.createStatement();</b>
+<b class="nc">&nbsp;                    ResultSet rs = stmt.executeQuery(pre_req_query);</b>
+<b class="nc">&nbsp;                    rs.next();</b>
+<b class="nc">&nbsp;                    pre_req = rs.getString(1);</b>
+&nbsp;                    // System.out.println(train_count);
+&nbsp;
+<b class="nc">&nbsp;                    stmt.close();</b>
+<b class="nc">&nbsp;                    c.close();</b>
+<b class="nc">&nbsp;                    rs.close();</b>
+&nbsp;                    // break;
+&nbsp;
+<b class="nc">&nbsp;                } catch (Exception e) {</b>
+<b class="nc">&nbsp;                    System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;                    System.exit(0);</b>
+<b class="nc">&nbsp;                }</b>
+&nbsp;
+<b class="nc">&nbsp;                pre_req = pre_req.substring(1, pre_req.length() - 1);</b>
+&nbsp;
+<b class="nc">&nbsp;                String str = pre_req;</b>
+<b class="nc">&nbsp;                String[] res = str.split(&quot;[,]&quot;, 0);</b>
+<b class="nc">&nbsp;                Vector&lt;String&gt; v = new Vector&lt;String&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;                for (String myStr : res) {</b>
+&nbsp;
+<b class="nc">&nbsp;                    String chek_query = &quot;select count(*) from enrollment_list where student_id=&quot; + &quot;\&#39;&quot; + user_id + &quot;\&#39;&quot; + &quot; and  course_code=&quot; + &quot;\&#39;&quot; + myStr + &quot;\&#39;&quot;;</b>
+<b class="nc">&nbsp;                    int k = 0;</b>
+&nbsp;
+&nbsp;                    try {
+&nbsp;
+<b class="nc">&nbsp;                        c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;                        stmt = c.createStatement();</b>
+<b class="nc">&nbsp;                        ResultSet rs = stmt.executeQuery(chek_query);</b>
+<b class="nc">&nbsp;                        rs.next();</b>
+<b class="nc">&nbsp;                        k = rs.getInt(1);</b>
+&nbsp;                        // System.out.println(k);
+&nbsp;
+<b class="nc">&nbsp;                        stmt.close();</b>
+<b class="nc">&nbsp;                        c.close();</b>
+<b class="nc">&nbsp;                        rs.close();</b>
+&nbsp;                        // break;
+&nbsp;
+<b class="nc">&nbsp;                        if (k == 0) {</b>
+<b class="nc">&nbsp;                            v.add(myStr);</b>
+<b class="nc">&nbsp;                            System.out.println(myStr);</b>
+&nbsp;
+&nbsp;                        }
+&nbsp;
+<b class="nc">&nbsp;                    } catch (Exception e) {</b>
+<b class="nc">&nbsp;                        System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;                        System.exit(0);</b>
+<b class="nc">&nbsp;                    }</b>
+&nbsp;
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                if (v.isEmpty()) {</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Cannot enroll pre-requistes not done !!!&quot;);</b>
+<b class="nc">&nbsp;                    for (int i = 0; i &lt; v.size(); i++) {</b>
+&nbsp;
+&nbsp;                        // Printing elements one by one
+<b class="nc">&nbsp;                        System.out.println(v.get(i));</b>
+&nbsp;                    }
+&nbsp;                } else {
+&nbsp;
+&nbsp;                    /////////////////////////// credit limit check //////////////////////////
+<b class="nc">&nbsp;                    float registerid_credits = 0;</b>
+<b class="nc">&nbsp;                    float course_credit = 0;</b>
+<b class="nc">&nbsp;                    float last_two_average = 0;</b>
+<b class="nc">&nbsp;                    int Current_year = 2023;</b>
+<b class="nc">&nbsp;                    String current_sem = &quot;II&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;                    String register_crdit_query = &quot;select  credits from enrollment_list where course_status =&quot; + &quot;\&#39;&quot; + &quot;running&quot; + &quot;\&#39;&quot;;</b>
+&nbsp;
+&nbsp;                    try {
+&nbsp;
+<b class="nc">&nbsp;                        c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;                        stmt = c.createStatement();</b>
+&nbsp;
+<b class="nc">&nbsp;                        ResultSet rs = stmt.executeQuery(register_crdit_query);</b>
+<b class="nc">&nbsp;                        ResultSetMetaData rsmd = rs.getMetaData();</b>
+&nbsp;
+<b class="nc">&nbsp;                        int columnsNumber = rsmd.getColumnCount();</b>
+&nbsp;
+<b class="nc">&nbsp;                        while (rs.next()) {</b>
+&nbsp;                            // Print one row
+<b class="nc">&nbsp;                            for (int i = 1; i &lt;= columnsNumber; i++) {</b>
+&nbsp;
+&nbsp;                                // System.out.print(rs.getString(i) + &quot; &quot;); // Print one element of a row
+&nbsp;
+<b class="nc">&nbsp;                                registerid_credits += rs.getInt(i);</b>
+&nbsp;
+&nbsp;                            }
+&nbsp;
+&nbsp;                            // System.out.println();// Move to the next line to print the next row.
+&nbsp;
+&nbsp;                        }
+<b class="nc">&nbsp;                        rs.close();</b>
+&nbsp;
+<b class="nc">&nbsp;                    } catch (SQLException e) {</b>
+<b class="nc">&nbsp;                        System.err.println(e.getMessage());</b>
+&nbsp;
+<b class="nc">&nbsp;                    }</b>
+&nbsp;
+<b class="nc">&nbsp;                    String course_cred_query = &quot;select credits from  offered_courses where course_code =&quot; + &quot;\&#39;&quot; + course_code + &quot;\&#39;&quot;;</b>
+&nbsp;
+&nbsp;                    try {
+&nbsp;
+<b class="nc">&nbsp;                        c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;                        stmt = c.createStatement();</b>
+<b class="nc">&nbsp;                        ResultSet rs = stmt.executeQuery(course_cred_query);</b>
+<b class="nc">&nbsp;                        rs.next();</b>
+<b class="nc">&nbsp;                        course_credit = rs.getFloat(1);</b>
+&nbsp;                        // System.out.println(train_count);
+&nbsp;
+<b class="nc">&nbsp;                        stmt.close();</b>
+<b class="nc">&nbsp;                        c.close();</b>
+<b class="nc">&nbsp;                        rs.close();</b>
+&nbsp;                        // break;
+&nbsp;
+<b class="nc">&nbsp;                    } catch (Exception e) {</b>
+<b class="nc">&nbsp;                        System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;                        System.exit(0);</b>
+<b class="nc">&nbsp;                    }</b>
+&nbsp;
+<b class="nc">&nbsp;                    if (course_credit + registerid_credits &lt;= 24) {</b>
+&nbsp;
+<b class="nc">&nbsp;                        String insert_query = &quot;INSERT INTO approve_students values  ( &quot; + &quot;\&#39;&quot; + user_id + &quot;\&#39;&quot; + &quot;,\&#39;&quot; + course_code + &quot;\&#39;&quot; + &quot;,&quot; + &quot;\&#39;&quot; + &quot;Pendig  Instructor approval &quot; + &quot;\&#39; )&quot;;</b>
+<b class="nc">&nbsp;                        System.out.println(insert_query);</b>
+&nbsp;                        try {
+&nbsp;
+<b class="nc">&nbsp;                            c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;                            stmt = c.createStatement();</b>
+<b class="nc">&nbsp;                            stmt.execute(insert_query);</b>
+<b class="nc">&nbsp;                            stmt.close();</b>
+<b class="nc">&nbsp;                            c.close();</b>
+&nbsp;
+<b class="nc">&nbsp;                            System.out.println(&quot;Pending Instructor approval .&quot;);</b>
+&nbsp;                            // System.exit(0);
+&nbsp;
+<b class="nc">&nbsp;                        } catch (Exception e) {</b>
+<b class="nc">&nbsp;                            System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;                            System.exit(0);</b>
+<b class="nc">&nbsp;                        }</b>
+&nbsp;
+&nbsp;                    }
+&nbsp;
+&nbsp;                }
+&nbsp;
+&nbsp;            }
+&nbsp;
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-06 15:47</div>
+</div>
+</body>
+</html>

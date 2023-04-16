@@ -1,0 +1,496 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Academics</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.example</a>
+</div>
+
+<h1>Coverage Summary for Class: Academics (org.example)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Academics</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/187)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.example;
+&nbsp;
+&nbsp;import java.util.Scanner;
+&nbsp;import java.io.BufferedReader;
+&nbsp;import java.io.BufferedWriter;
+&nbsp;import java.io.InputStreamReader;
+&nbsp;import java.io.OutputStreamWriter;
+&nbsp;import java.io.PrintWriter;
+&nbsp;import java.io.IOException;
+&nbsp;import java.net.ServerSocket;
+&nbsp;import java.net.Socket;
+&nbsp;import java.util.concurrent.ExecutorService;
+&nbsp;import java.util.concurrent.Executors;
+&nbsp;import java.util.*;
+&nbsp;import java.sql.*;
+&nbsp;
+&nbsp;import org.example.CourseRegister;
+&nbsp;import org.example.CourseDeRegister;
+&nbsp;
+<b class="nc">&nbsp;public class Academics {</b>
+&nbsp;
+&nbsp;
+&nbsp;    public static void GenerateTranscript(String DB_URL, String USER, String PASS, String user_id) {
+&nbsp;
+<b class="nc">&nbsp;        Connection c = null;</b>
+<b class="nc">&nbsp;        Statement stmt = null;</b>
+<b class="nc">&nbsp;        Scanner sc = new Scanner(System.in);</b>
+&nbsp;
+&nbsp;        int yoy;
+&nbsp;
+&nbsp;        ///////////////// student details ///////////////////
+&nbsp;
+&nbsp;        try {
+&nbsp;
+<b class="nc">&nbsp;            c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;            stmt = c.createStatement();</b>
+<b class="nc">&nbsp;            String user_detail = &quot;SELECT *FROM student_details where user_id =&quot; + &quot;\&#39;&quot;</b>
+&nbsp;                    + user_id + &quot;\&#39;&quot;;
+&nbsp;
+<b class="nc">&nbsp;            ResultSet rs = stmt.executeQuery(user_detail);</b>
+<b class="nc">&nbsp;            ResultSetMetaData rsmd = rs.getMetaData();</b>
+&nbsp;
+<b class="nc">&nbsp;            int columnsNumber = rsmd.getColumnCount();</b>
+&nbsp;            // System.out.println(rs.getString(0));
+&nbsp;
+<b class="nc">&nbsp;            while (rs.next()) {</b>
+&nbsp;
+<b class="nc">&nbsp;                System.out.println(</b>
+&nbsp;                        &quot;*******************************************transcript****************************************************&quot;);
+&nbsp;                // Print one row
+<b class="nc">&nbsp;                for (int i = 1; i &lt;= columnsNumber; i++) {</b>
+&nbsp;
+<b class="nc">&nbsp;                    if (i == 1) {</b>
+<b class="nc">&nbsp;                        System.out.print(&quot;Entry No: &quot;);</b>
+<b class="nc">&nbsp;                        System.out.print(rs.getString(i));</b>
+<b class="nc">&nbsp;                        System.out.print(&quot;         &quot;);</b>
+&nbsp;                    }
+&nbsp;
+<b class="nc">&nbsp;                    if (i == 2) {</b>
+<b class="nc">&nbsp;                        System.out.print(&quot;email: &quot;);</b>
+<b class="nc">&nbsp;                        System.out.print(rs.getString(i));</b>
+<b class="nc">&nbsp;                        System.out.print(&quot;        &quot;);</b>
+&nbsp;                    }
+&nbsp;
+<b class="nc">&nbsp;                    if (i == 3) {</b>
+<b class="nc">&nbsp;                        System.out.print(&quot;Name: &quot;);</b>
+<b class="nc">&nbsp;                        System.out.print(rs.getString(i));</b>
+<b class="nc">&nbsp;                        System.out.print(&quot; &quot;);</b>
+&nbsp;
+&nbsp;                    }
+<b class="nc">&nbsp;                    if (i == 4) {</b>
+<b class="nc">&nbsp;                        System.out.println(rs.getString(i));</b>
+&nbsp;
+&nbsp;                    }
+<b class="nc">&nbsp;                    if (i == 7) {</b>
+<b class="nc">&nbsp;                        System.out.println();</b>
+<b class="nc">&nbsp;                        System.out.print(&quot;Degree: &quot;);</b>
+<b class="nc">&nbsp;                        System.out.print(rs.getString(i));</b>
+<b class="nc">&nbsp;                        System.out.print(&quot;      &quot;);</b>
+&nbsp;                    }
+<b class="nc">&nbsp;                    if (i == 8) {</b>
+<b class="nc">&nbsp;                        System.out.print(&quot;Department :&quot;);</b>
+<b class="nc">&nbsp;                        System.out.print(rs.getString(i));</b>
+<b class="nc">&nbsp;                        System.out.println(&quot;       &quot;);</b>
+&nbsp;                    }
+&nbsp;
+<b class="nc">&nbsp;                    if (i == 9) {</b>
+<b class="nc">&nbsp;                        System.out.println();</b>
+<b class="nc">&nbsp;                        System.out.print(&quot;Year of entry : &quot;);</b>
+<b class="nc">&nbsp;                        String temp = rs.getString(i);</b>
+<b class="nc">&nbsp;                        System.out.print(temp);</b>
+<b class="nc">&nbsp;                        yoy = Integer.parseInt(temp);</b>
+&nbsp;                        // System.out.println(yoy);
+&nbsp;                    }
+&nbsp;
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                System.out.println();// Move to the next line to print the next row.</b>
+&nbsp;
+&nbsp;            }
+<b class="nc">&nbsp;            rs.close();</b>
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            System.err.println(e.getMessage());</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println();</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Academics for Credit Courses&quot;);</b>
+<b class="nc">&nbsp;        System.out.println();</b>
+&nbsp;
+&nbsp;        // System.out.println(&quot;Academic session: &quot; +2020-I | SGPA: 7.33 | Credits
+&nbsp;        // registered: 18 | Earned Credits: 18 | Cumul. Earned Credits: 18 | CGPA:
+&nbsp;        // 7.33&quot;);
+&nbsp;
+&nbsp;        // String transriptquery = &quot;select course_code, grade from enrollment_list where
+&nbsp;        // student_id =&quot; + &quot;\&#39;&quot; + user_id
+&nbsp;        // + &quot; \&#39;&quot;;
+&nbsp;
+&nbsp;        // try {
+&nbsp;
+&nbsp;        // c = DriverManager.getConnection(DB_URL, USER, PASS);
+&nbsp;        // stmt = c.createStatement();
+&nbsp;        // stmt.execute(transriptquery);
+&nbsp;        // stmt.close();
+&nbsp;        // c.close();
+&nbsp;
+&nbsp;        // } catch (Exception e) {
+&nbsp;        // System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());
+&nbsp;        // System.exit(0);
+&nbsp;        // }
+&nbsp;
+&nbsp;        //////////////// copy the data to ouptut.txt file
+&nbsp;        //////////////// ///////////////////////////////
+&nbsp;
+&nbsp;        ////// checking the elective requirements for graduation ///////////////
+<b class="nc">&nbsp;        int pc = 0, pe = 0, el = 0;</b>
+<b class="nc">&nbsp;        String category = null;</b>
+&nbsp;
+&nbsp;        try {
+&nbsp;
+<b class="nc">&nbsp;            c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;            stmt = c.createStatement();</b>
+<b class="nc">&nbsp;            String tquery = &quot;select course_code,course_title, grade, category,credits from enrollment_list where student_id =&quot;</b>
+&nbsp;                    + &quot;\&#39;&quot; + user_id + &quot;\&#39;&quot; + &quot;and grade  is not null&quot;;
+&nbsp;
+<b class="nc">&nbsp;            ResultSet rs = stmt.executeQuery(tquery);</b>
+<b class="nc">&nbsp;            ResultSetMetaData rsmd = rs.getMetaData();</b>
+&nbsp;
+<b class="nc">&nbsp;            int columnsNumber = rsmd.getColumnCount();</b>
+&nbsp;            // System.out.println(rs.getString(0));
+&nbsp;
+<b class="nc">&nbsp;            while (rs.next()) {</b>
+&nbsp;
+&nbsp;                // System.out.println(
+&nbsp;                // &quot;*******************************************transcript****************************************************&quot;);
+&nbsp;                // // Print one row
+<b class="nc">&nbsp;                for (int i = 1; i &lt;= columnsNumber; i++) {</b>
+&nbsp;
+<b class="nc">&nbsp;                    if (i == 2) {</b>
+<b class="nc">&nbsp;                        System.out.printf(&quot;%-80s&quot;, rs.getString(i));</b>
+&nbsp;                    } else {
+<b class="nc">&nbsp;                        System.out.printf(&quot;%-10s&quot;, rs.getString(i));</b>
+&nbsp;                        // System.out.print(&quot; &quot;);
+&nbsp;                    }
+&nbsp;
+&nbsp;                    //////////// calculating credits to check the graduation
+&nbsp;                    //////////// status//////////////////////
+<b class="nc">&nbsp;                    if (i == 4) {</b>
+<b class="nc">&nbsp;                        category = rs.getString(i);</b>
+&nbsp;
+&nbsp;                    }
+&nbsp;
+<b class="nc">&nbsp;                    if (i == 5) {</b>
+&nbsp;
+<b class="nc">&nbsp;                        if (category.equals(&quot;PC&quot;)) {</b>
+&nbsp;
+<b class="nc">&nbsp;                            pc += Integer.parseInt(rs.getString(i));</b>
+<b class="nc">&nbsp;                        } else if (category.equals(&quot;PE&quot;)) {</b>
+<b class="nc">&nbsp;                            pe += Integer.parseInt(rs.getString(i));</b>
+<b class="nc">&nbsp;                        } else if (category.equals(&quot;EL&quot;)) {</b>
+<b class="nc">&nbsp;                            el += Integer.parseInt(rs.getString(i));</b>
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                System.out.println();// Move to the next line to print the next row.</b>
+&nbsp;
+&nbsp;            }
+<b class="nc">&nbsp;            rs.close();</b>
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            System.err.println(e.getMessage());</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        System.out.println();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (pc == 60 &amp;&amp; pe == 30 &amp;&amp; el == 30) {</b>
+&nbsp;
+&nbsp;            // capstone check
+&nbsp;
+<b class="nc">&nbsp;            String query1 = &quot;select count(*) from enrollment_list where course_code=&quot; + &quot;\&#39;&quot; + &quot;CP302&quot; + &quot;\&#39;&quot;;</b>
+<b class="nc">&nbsp;            String query2 = &quot;select count(*) from enrollment_list where course_code=&quot; + &quot;\&#39;&quot; + &quot;CP303&quot; + &quot;\&#39;&quot;;</b>
+<b class="nc">&nbsp;            int x = 0, y = 0;</b>
+&nbsp;            try {
+&nbsp;
+<b class="nc">&nbsp;                c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;                stmt = c.createStatement();</b>
+<b class="nc">&nbsp;                ResultSet rs = stmt.executeQuery(query1);</b>
+<b class="nc">&nbsp;                rs.next();</b>
+<b class="nc">&nbsp;                x = rs.getInt(1);</b>
+<b class="nc">&nbsp;                stmt.close();</b>
+<b class="nc">&nbsp;                c.close();</b>
+<b class="nc">&nbsp;                rs.close();</b>
+&nbsp;                // break;
+&nbsp;
+<b class="nc">&nbsp;            } catch (Exception e) {</b>
+<b class="nc">&nbsp;                System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;                System.exit(0);</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+&nbsp;            try {
+&nbsp;
+<b class="nc">&nbsp;                c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;                stmt = c.createStatement();</b>
+<b class="nc">&nbsp;                ResultSet rs = stmt.executeQuery(query2);</b>
+<b class="nc">&nbsp;                rs.next();</b>
+<b class="nc">&nbsp;                y = rs.getInt(1);</b>
+<b class="nc">&nbsp;                stmt.close();</b>
+<b class="nc">&nbsp;                c.close();</b>
+<b class="nc">&nbsp;                rs.close();</b>
+&nbsp;                // break;
+&nbsp;
+<b class="nc">&nbsp;            } catch (Exception e) {</b>
+<b class="nc">&nbsp;                System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;                System.exit(0);</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+<b class="nc">&nbsp;            if (x == 1 &amp;&amp; y == 1) {</b>
+&nbsp;
+<b class="nc">&nbsp;                System.out.println(</b>
+&nbsp;                        &quot;*********************************************Graduation Completed !!!***********************************************&quot;);
+&nbsp;            } else {
+&nbsp;
+<b class="nc">&nbsp;                System.out.println(&quot;Capstone not done !!!&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                System.out.println(</b>
+&nbsp;                        &quot;*********************************************Not Graduated !!!***********************************************&quot;);
+&nbsp;            }
+<b class="nc">&nbsp;        } else {</b>
+&nbsp;
+<b class="nc">&nbsp;            System.out.println(&quot;Total program core credits left : &quot;);</b>
+<b class="nc">&nbsp;            System.out.println(60 - pc);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Total program elective credits left : &quot;);</b>
+<b class="nc">&nbsp;            System.out.println(30 - pe);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Total elective  credits left : &quot;);</b>
+<b class="nc">&nbsp;            System.out.println(30 - el);</b>
+<b class="nc">&nbsp;            System.out.println(</b>
+&nbsp;                    &quot;*********************************************Not Graduated !!!***********************************************&quot;);
+&nbsp;        }
+&nbsp;        // System.out.println(tquery);
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    ///////////////////////////////////////academics approve funtion ///////////////////////////
+&nbsp;
+&nbsp;    public static void AcademicsApprove( String DB_URL, String USER, String PASS, String course_code) {
+<b class="nc">&nbsp;        Connection c = null;</b>
+<b class="nc">&nbsp;        Statement stmt = null;</b>
+<b class="nc">&nbsp;        Scanner sc = new Scanner(System.in);</b>
+&nbsp;
+&nbsp;
+&nbsp;        try {
+&nbsp;
+<b class="nc">&nbsp;            c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;            stmt = c.createStatement();</b>
+<b class="nc">&nbsp;            String approve_table = &quot;SELECT * FROM approve_students where course_code = &quot; + &quot;\&#39;&quot; + course_code</b>
+&nbsp;                    + &quot;\&#39;&quot;;
+<b class="nc">&nbsp;            ResultSet rs = stmt.executeQuery(approve_table);</b>
+<b class="nc">&nbsp;            ResultSetMetaData rsmd = rs.getMetaData();</b>
+&nbsp;
+<b class="nc">&nbsp;            int columnsNumber = rsmd.getColumnCount();</b>
+&nbsp;            // System.out.println(rs.getString(0));
+<b class="nc">&nbsp;            int no = 1;</b>
+&nbsp;
+<b class="nc">&nbsp;            while (rs.next()) {</b>
+&nbsp;                // Print one row
+&nbsp;                // System.out.print(no + &quot;-----&gt; &quot;);
+<b class="nc">&nbsp;                for (int i = 1; i &lt;= columnsNumber; i++) {</b>
+&nbsp;
+<b class="nc">&nbsp;                    System.out.print(rs.getString(i) + &quot; &quot;); // Print one element of a row</b>
+&nbsp;
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                System.out.println();// Move to the next line to print the next row.</b>
+<b class="nc">&nbsp;                no++;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rs.close();</b>
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            System.err.println(e.getMessage());</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;Enter 1 to approve all &quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Enter 2 to approve a particular year students &quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;enter 3 to approve a specific student &quot;);</b>
+<b class="nc">&nbsp;        int way = sc.nextInt();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (way == 1) {</b>
+&nbsp;
+<b class="nc">&nbsp;            String query = &quot;update approve_students set approval_status =&quot; + &quot;\&#39;&quot; + &quot;credit&quot; + &quot;\&#39;&quot;</b>
+&nbsp;                    + &quot; where course_code =&quot; + &quot;\&#39;&quot; + course_code
+&nbsp;                    + &quot;\&#39;&quot;;
+&nbsp;
+<b class="nc">&nbsp;            System.out.println(query);</b>
+&nbsp;
+&nbsp;            try {
+&nbsp;
+<b class="nc">&nbsp;                c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;                stmt = c.createStatement();</b>
+<b class="nc">&nbsp;                stmt.execute(query);</b>
+<b class="nc">&nbsp;                stmt.close();</b>
+<b class="nc">&nbsp;                c.close();</b>
+&nbsp;
+<b class="nc">&nbsp;                System.out.println(&quot; Approved successfully&quot;);</b>
+<b class="nc">&nbsp;                System.exit(0);</b>
+&nbsp;
+<b class="nc">&nbsp;            } catch (Exception e) {</b>
+<b class="nc">&nbsp;                System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;                System.exit(0);</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+<b class="nc">&nbsp;        } else if (way == 2) {</b>
+&nbsp;
+<b class="nc">&nbsp;            System.out.println(&quot;enter year &quot;);</b>
+<b class="nc">&nbsp;            int year = sc.nextInt();</b>
+&nbsp;
+<b class="nc">&nbsp;            String query = &quot;update approve_students set approval_status =&quot; + &quot;\&#39;&quot; + &quot;credit&quot; + &quot;\&#39;&quot;</b>
+&nbsp;                    + &quot; where  entry_no like &quot; + &quot;\&#39;&quot; + year + &quot;%\&#39;&quot; + &quot;and course_code =&quot; + &quot;\&#39;&quot; + course_code
+&nbsp;                    + &quot;\&#39;&quot;;
+&nbsp;
+<b class="nc">&nbsp;            System.out.println(query);</b>
+&nbsp;
+&nbsp;            try {
+&nbsp;
+<b class="nc">&nbsp;                c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;                stmt = c.createStatement();</b>
+<b class="nc">&nbsp;                stmt.execute(query);</b>
+<b class="nc">&nbsp;                stmt.close();</b>
+<b class="nc">&nbsp;                c.close();</b>
+&nbsp;
+<b class="nc">&nbsp;                System.out.println(&quot; Approved successfully&quot;);</b>
+<b class="nc">&nbsp;                System.exit(0);</b>
+&nbsp;
+<b class="nc">&nbsp;            } catch (Exception e) {</b>
+<b class="nc">&nbsp;                System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;                System.exit(0);</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+<b class="nc">&nbsp;        } else if (way == 3) {</b>
+&nbsp;
+<b class="nc">&nbsp;            System.out.println(&quot;Enter the entry number of the student to approve&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;            String entryNumber = sc.next();</b>
+&nbsp;
+<b class="nc">&nbsp;            String query = &quot;update approve_students set approval_status =&quot; + &quot;\&#39;&quot; + &quot;credit&quot; + &quot;\&#39;&quot;</b>
+&nbsp;                    + &quot; where  entry_no=&quot; + &quot;\&#39;&quot; + entryNumber + &quot;\&#39;&quot; + &quot;and course_code =&quot; + &quot;\&#39;&quot; + course_code
+&nbsp;                    + &quot;\&#39;&quot;;
+&nbsp;
+<b class="nc">&nbsp;            System.out.println(query);</b>
+&nbsp;
+&nbsp;            try {
+&nbsp;
+<b class="nc">&nbsp;                c = DriverManager.getConnection(DB_URL, USER, PASS);</b>
+<b class="nc">&nbsp;                stmt = c.createStatement();</b>
+<b class="nc">&nbsp;                stmt.execute(query);</b>
+<b class="nc">&nbsp;                stmt.close();</b>
+<b class="nc">&nbsp;                c.close();</b>
+&nbsp;
+<b class="nc">&nbsp;                System.out.println(&quot; Approved successfully&quot;);</b>
+<b class="nc">&nbsp;                System.exit(0);</b>
+&nbsp;
+<b class="nc">&nbsp;            } catch (Exception e) {</b>
+<b class="nc">&nbsp;                System.err.println(e.getClass().getName() + &quot;: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;                System.exit(0);</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-06 15:47</div>
+</div>
+</body>
+</html>
